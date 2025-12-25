@@ -57,8 +57,14 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Compel Payment Server running on port ${PORT}`);
-  console.log(`📍 Local: http://localhost:${PORT}`);
-});
+// For Vercel serverless
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Compel Payment Server running on port ${PORT}`);
+    console.log(`📍 Local: http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
